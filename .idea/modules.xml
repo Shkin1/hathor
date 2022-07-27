@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/hathor.iml" filepath="$PROJECT_DIR$/.idea/hathor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hathor-api/hathor-api.iml" filepath="$PROJECT_DIR$/hathor-api/hathor-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hathor-common/hathor-common.iml" filepath="$PROJECT_DIR$/hathor-common/hathor-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hathor-core/hathor-core.iml" filepath="$PROJECT_DIR$/hathor-core/hathor-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hathor-portal/hathor-portal.iml" filepath="$PROJECT_DIR$/hathor-portal/hathor-portal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hathor-web/hathor-web.iml" filepath="$PROJECT_DIR$/hathor-web/hathor-web.iml" />
+    </modules>
+  </component>
+</project>
