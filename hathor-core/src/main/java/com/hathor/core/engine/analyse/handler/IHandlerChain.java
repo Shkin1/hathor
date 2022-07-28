@@ -1,4 +1,4 @@
-package com.hathor.core.engine.analyse.atree;
+package com.hathor.core.engine.analyse.handler;
 
 import com.hathor.core.engine.analyse.SqlRequestContext;
 import com.hathor.core.engine.analyse.SqlResponseContext;
@@ -16,7 +16,7 @@ import com.hathor.core.engine.analyse.SqlResponseContext;
  * Date         Author          Version            Description
  * ------------------------------------------------------------
  */
-public interface IAnalyseTreeBuildChain {
+public interface IHandlerChain {
 
     /**
      * 构建链

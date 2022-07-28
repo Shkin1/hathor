@@ -1,4 +1,4 @@
-package com.hathor.exception;
+package com.hathor.common.exception;
 
 /**
  * <p>ParserException</p>

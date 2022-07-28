@@ -1,13 +1,16 @@
-package com.hathor.core.engine.analyse.atree;
+package com.hathor.core.engine.analyse.handler;
 
 import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.SQLStatement;
 import com.hathor.core.engine.analyse.SqlRequestContext;
 import com.hathor.core.engine.analyse.SqlResponseContext;
+import com.hathor.core.engine.contants.StartOrderConstants;
 import com.hathor.core.engine.model.TableNode;
 import com.hathor.core.engine.model.TreeNode;
 import com.hathor.core.engine.register.DruidProcessorRegister;
-import com.hathor.exception.ParserException;
+import com.hathor.common.exception.ParserException;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Objects;
@@ -27,10 +30,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Date         Author          Version            Description
  * ------------------------------------------------------------
  */
-public class TableLineageTreeBuild implements IAnalyseTree {
+@Order(StartOrderConstants.ORDER_FIRST)
+@Component
+public class TableLineageTreeHandler implements IHandler {
 
     @Override
-    public void build(SqlRequestContext request, SqlResponseContext response) {
+    public void handleRequest(SqlRequestContext request, SqlResponseContext response) {
         check(request);
         lineageTreeBuild(request, response);
     }

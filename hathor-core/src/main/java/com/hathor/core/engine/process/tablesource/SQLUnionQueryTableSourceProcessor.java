@@ -9,7 +9,7 @@ import com.hathor.core.engine.model.ColumnNode;
 import com.hathor.core.engine.model.TableNode;
 import com.hathor.core.engine.model.TreeNode;
 import com.hathor.core.engine.register.DruidProcessorRegister;
-import com.hathor.exception.ParserException;
+import com.hathor.common.exception.ParserException;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
