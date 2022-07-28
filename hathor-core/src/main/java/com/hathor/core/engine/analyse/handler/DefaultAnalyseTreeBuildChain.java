@@ -2,6 +2,7 @@ package com.hathor.core.engine.analyse.handler;
 
 import com.hathor.core.engine.analyse.SqlRequestContext;
 import com.hathor.core.engine.analyse.SqlResponseContext;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * Date         Author          Version            Description
  * ------------------------------------------------------------
  */
+@Component
 public class DefaultAnalyseTreeBuildChain implements IHandlerChain {
 
     private final List<IHandler> handlerList;

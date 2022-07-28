@@ -2,10 +2,8 @@ package com.hathor.core.engine.process.statement.hive;
 
 import com.alibaba.druid.sql.ast.SQLStatement;
 import com.alibaba.druid.sql.ast.statement.SQLExprTableSource;
-import com.alibaba.druid.sql.ast.statement.SQLSelect;
 import com.alibaba.druid.sql.ast.statement.SQLSelectQuery;
 import com.alibaba.druid.sql.dialect.hive.stmt.HiveCreateTableStatement;
-import com.alibaba.druid.sql.dialect.postgresql.ast.stmt.PGInsertStatement;
 import com.hathor.core.engine.annotation.SQLObjectType;
 import com.hathor.core.engine.model.TableNode;
 import com.hathor.core.engine.model.TreeNode;

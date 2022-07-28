@@ -2,6 +2,7 @@ package com.hathor.core.engine.analyse.handler;
 
 import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.SQLStatement;
+import com.alibaba.druid.util.JdbcConstants;
 import com.hathor.core.engine.analyse.SqlRequestContext;
 import com.hathor.core.engine.analyse.SqlResponseContext;
 import com.hathor.core.engine.contants.StartOrderConstants;
@@ -46,9 +47,13 @@ public class TableLineageTreeHandler implements IHandler {
         SQLStatement statement;
         try {
             // 自动适配对应的statement, eg： PGInsertStatement
-            statement = SQLUtils.parseSingleStatement(
-                    sqlContext.getSql(),
-                    sqlContext.getDbType().toLowerCase());
+//            statement = SQLUtils.parseSingleStatement(
+//                    sqlContext.getSql(),
+//                    sqlContext.getDbType().toLowerCase());
+
+            // 注意Hive 只有insert create 如何是select会自动转为SQLSelectStatement
+            statement = SQLUtils.parseSingleStatement(sqlContext.getSql(),
+                    JdbcConstants.HIVE.toLowerCase());
         } catch (Exception e) {
             throw new ParserException("statement.parser.err", e);
         }

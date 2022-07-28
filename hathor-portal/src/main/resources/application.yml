@@ -1,0 +1,8 @@
+server:
+  port: 9085
+  servlet:
+    context-path: /hathor
+spring:
+  application:
+    name: hathor
+

@@ -11,6 +11,48 @@
     </parent>
     <artifactId>hathor-portal</artifactId>
     <version>0.1.1</version>
+    <packaging>jar</packaging>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.hathor</groupId>
+            <artifactId>hathor-common</artifactId>
+            <version>0.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hathor</groupId>
+            <artifactId>hathor-core</artifactId>
+            <version>0.1.1</version>
+        </dependency>
+    </dependencies>
+
+
+
+    <build>
+        <finalName>hathor</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>
