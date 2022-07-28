@@ -16,7 +16,7 @@ import com.hathor.core.engine.process.SqlExprContent;
  * Date         Author          Version            Description
  * ------------------------------------------------------------
  */
-public interface SqlExprProcessor {
+public interface SQLExprProcessor {
 
     /**
      * SQLExpr 内容提取
