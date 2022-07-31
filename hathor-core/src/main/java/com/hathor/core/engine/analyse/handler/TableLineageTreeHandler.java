@@ -51,9 +51,9 @@ public class TableLineageTreeHandler implements IHandler {
 //                    sqlContext.getSql(),
 //                    sqlContext.getDbType().toLowerCase());
 
-            // 注意Hive 只有insert create 如何是select会自动转为SQLSelectStatement
+            // 注意Hive 只有insert create 如何是select会自动转为SQLSelectStatement;  JdbcConstants.HIVE.toLowerCase()
             statement = SQLUtils.parseSingleStatement(sqlContext.getSql(),
-                    JdbcConstants.HIVE.toLowerCase());
+                    sqlContext.getDbType().toLowerCase());
         } catch (Exception e) {
             throw new ParserException("statement.parser.err", e);
         }

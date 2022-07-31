@@ -32,7 +32,8 @@ import java.util.List;
 public class ColumnLineageTreeHandler implements IHandler {
     @Override
     public void handleRequest(SqlRequestContext request, SqlResponseContext response) {
-        handleColumnRelation(request, response);
+        System.out.println("TODO ---");
+//        handleColumnRelation(request, response);
     }
 
     private void handleColumnRelation(SqlRequestContext sqlContext, SqlResponseContext response) {

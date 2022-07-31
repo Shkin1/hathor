@@ -5,6 +5,7 @@ import com.alibaba.druid.sql.ast.SQLStatement;
 import com.alibaba.druid.sql.dialect.postgresql.visitor.PGSchemaStatVisitor;
 import com.hathor.common.exception.ParserException;
 import com.hathor.core.engine.model.ColumnNode;
+import com.hathor.core.engine.model.Node;
 import com.hathor.core.engine.model.TableNode;
 import com.hathor.core.engine.model.TreeNode;
 import lombok.extern.slf4j.Slf4j;
@@ -142,8 +143,9 @@ public class DefaultColumnLineageTracer implements ColumnLineageTracer {
      */
     @SuppressWarnings("unsed")
     private boolean validNode(TreeNode<TableNode> node) {
-        return node.getValue().getAlias() != null || node.getValue().getIsVirtualTemp() == null;
+        return node.getValue().getAlias() != null || node.getValue().getVirtualTemp() == null;
     }
+
 
     /**
      * 查找表血缘树最近的节点
@@ -178,7 +180,7 @@ public class DefaultColumnLineageTracer implements ColumnLineageTracer {
         // 如果找不到就找子节点
         currentNode.getChildList().forEach(node -> {
             // 子节点，找到就结束
-            if (node.getValue().getAlias() != null || node.getValue().getIsVirtualTemp() == null) {
+            if (node.getValue().getAlias() != null || node.getValue().getVirtualTemp() == null) {
                 nearestTableNodeList.add(node);
                 // 当本身是别名节点时不往下走
                 return;

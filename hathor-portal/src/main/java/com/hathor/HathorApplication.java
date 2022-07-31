@@ -17,12 +17,12 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * Date         Author          Version            Description
  * ------------------------------------------------------------
  */
-@SpringBootApplication(scanBasePackages = {PortalApplication.BASE_PACKAGE}, exclude = {DataSourceAutoConfiguration.class})
-public class PortalApplication {
+@SpringBootApplication(scanBasePackages = {HathorApplication.BASE_PACKAGE}, exclude = {DataSourceAutoConfiguration.class})
+public class HathorApplication {
 
     public final static String BASE_PACKAGE = "com.hathor.*";
     public static void main(String[] args) {
 
-        SpringApplication.run(PortalApplication.class, args);
+        SpringApplication.run(HathorApplication.class, args);
     }
 }

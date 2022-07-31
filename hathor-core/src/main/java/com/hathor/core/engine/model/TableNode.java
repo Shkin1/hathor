@@ -9,18 +9,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>
+ * <p>TableNode</p>
+ * <p>Description:
  * 数据血缘解析时表节点
  * </p>
  *
- * @author JupiterMouse 2020/09/09
- * @since 1.0
+ * @author 普帝
+ * @version v1.0.0
+ * @date 2022/07/2022/7/30 22:38
+ * <p>
+ * Modification History:
+ * Date         Author          Version            Description
+ * ------------------------------------------------------------
  */
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class TableNode {
+public class TableNode extends Node {
+
+    public TableNode() {
+
+    }
+
+    public TableNode(String tableType) {
+        setType(tableType);
+    }
 
     /**
      * schema
@@ -52,4 +64,59 @@ public class TableNode {
      * 表达式
      */
     private String expression;
+
+
+    public String getSchemaName() {
+        return schemaName;
+    }
+
+    public void setSchemaName(String schemaName) {
+        this.schemaName = schemaName;
+    }
+
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public Boolean getVirtualTemp() {
+        return isVirtualTemp;
+    }
+
+    public void setVirtualTemp(Boolean virtualTemp) {
+        isVirtualTemp = virtualTemp;
+    }
+
+    public String getQueryType() {
+        return queryType;
+    }
+
+    public void setQueryType(String queryType) {
+        this.queryType = queryType;
+    }
+
+    public List<ColumnNode> getColumns() {
+        return columns;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+
+    public void setExpression(String expression) {
+        this.expression = expression;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.setPkName(name);
+        this.name = name;
+    }
 }

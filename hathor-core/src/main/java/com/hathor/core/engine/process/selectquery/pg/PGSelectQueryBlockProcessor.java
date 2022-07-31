@@ -8,6 +8,7 @@ import com.alibaba.druid.sql.dialect.postgresql.ast.stmt.PGSelectQueryBlock;
 import com.hathor.common.contants.ParserConstant;
 import com.hathor.core.engine.annotation.SQLObjectType;
 import com.hathor.core.engine.model.ColumnNode;
+import com.hathor.core.engine.model.Node;
 import com.hathor.core.engine.model.TableNode;
 import com.hathor.core.engine.model.TreeNode;
 import com.hathor.core.engine.process.SqlExprContent;
@@ -42,14 +43,15 @@ public class PGSelectQueryBlockProcessor extends AbstractSQLSelectQueryProcessor
                         SQLSelectQuery sqlSelectQuery) {
         PGSelectQueryBlock pgSelectQueryBlock = (PGSelectQueryBlock) sqlSelectQuery;
         // 建立表节点，并关系父级关系
-        TableNode proxyTable = TableNode.builder()
-                .isVirtualTemp(true)
-                .expression(SQLUtils.toSQLString(pgSelectQueryBlock))
-                .name(ParserConstant.TEMP_TABLE_PREFIX + sequence.incrementAndGet())
-                .alias(this.getSubqueryTableSourceAlias(pgSelectQueryBlock))
-                .build();
+        TableNode proxyTable = new TableNode();
+        proxyTable.setName(ParserConstant.TEMP_TABLE_PREFIX + sequence.incrementAndGet());
+        proxyTable.setVirtualTemp(true);
+        proxyTable.setProcessorName(sqlSelectQuery.getClass().getName());
+        proxyTable.setExpression(SQLUtils.toSQLString(pgSelectQueryBlock));
+        proxyTable.setAlias(this.getSubqueryTableSourceAlias(pgSelectQueryBlock));
+        proxyTable.setType(Node.V_TABLE_TYPE);
+        proxyTable.setProcessorName(pgSelectQueryBlock.getClass().getName());
         TreeNode<TableNode> proxyNode = TreeNode.of(proxyTable);
-        log.info("addChild :{}", proxyNode);
         parent.addChild(proxyNode);
         // 生成字段
         List<ColumnNode> columnList = pgSelectQueryBlock.getSelectList()

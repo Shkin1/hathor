@@ -5,6 +5,7 @@ import com.alibaba.druid.sql.ast.statement.SQLJoinTableSource;
 import com.alibaba.druid.sql.ast.statement.SQLTableSource;
 import com.hathor.common.contants.ParserConstant;
 import com.hathor.core.engine.annotation.SQLObjectType;
+import com.hathor.core.engine.model.Node;
 import com.hathor.core.engine.model.TableNode;
 import com.hathor.core.engine.model.TreeNode;
 import com.hathor.core.engine.register.DruidProcessorRegister;
@@ -37,12 +38,13 @@ public class SQLJoinTableSourceProcessor implements TableSourceProcessor {
     public void process(String dbType, AtomicInteger sequence, TreeNode<TableNode> parent,
                         SQLTableSource sqlTableSource) {
         // 建立中介节点 start
-        TableNode proxyTable = TableNode.builder()
-                .isVirtualTemp(true)
-                .expression(SQLUtils.toSQLString(sqlTableSource))
-                .name(ParserConstant.TEMP_TABLE_PREFIX + sequence.incrementAndGet())
-                .alias(sqlTableSource.getAlias())
-                .build();
+        TableNode proxyTable = new TableNode();
+        proxyTable.setType(Node.V_JOIN_TABLE_TYPE);
+        proxyTable.setProcessorName(sqlTableSource.getClass().getName());
+        proxyTable.setName(ParserConstant.TEMP_TABLE_PREFIX + sequence.incrementAndGet());
+        proxyTable.setAlias(sqlTableSource.getAlias());
+        proxyTable.setExpression(SQLUtils.toSQLString(sqlTableSource));
+        proxyTable.setVirtualTemp(true);
 
         TreeNode<TableNode> proxyNode = TreeNode.of(proxyTable);
         parent.addChild(proxyNode);

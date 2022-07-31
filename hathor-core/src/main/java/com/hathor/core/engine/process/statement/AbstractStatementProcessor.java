@@ -4,6 +4,7 @@ import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.SQLExpr;
 import com.alibaba.druid.sql.ast.SQLStatement;
 import com.alibaba.druid.sql.ast.statement.SQLExprTableSource;
+import com.hathor.core.engine.model.Node;
 import com.hathor.core.engine.model.TableNode;
 import com.hathor.core.engine.model.TreeNode;
 import com.hathor.core.engine.process.SqlExprContent;
@@ -44,11 +45,12 @@ public abstract class AbstractStatementProcessor implements StatementProcessor {
         DruidProcessorRegister.getSQLExprProcessor(sqlExpr.getClass()).process(dbType, sqlExpr, content);
         String tableName = content.getName();
         String schemaName = content.getOwner();
-        TableNode tableNode = TableNode.builder()
-                .schemaName(schemaName)
-                .name(tableName)
-                .isVirtualTemp(false)
-                .build();
+        TableNode tableNode = new TableNode();
+        tableNode.setType(Node.ROOT_TABLE_TYPE);
+        tableNode.setSchemaName(schemaName);
+        tableNode.setName(tableName);
+        tableNode.setVirtualTemp(false);
+        tableNode.setProcessorName(statement.getClass().getName());
         root.setValue(tableNode);
         try {
             tableNode.setExpression(SQLUtils.toSQLString(statement));

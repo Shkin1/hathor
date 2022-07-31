@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * <p>FirstTableSupplementHandler</p>
  * <p>Description:
- *
+ * <p>
  * 补全首节点column信息，在解析时针对字段不包含列名的情况
  * 1. create view xxx as select
  * 2. insert overwrite into ...
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 @Order(StartOrderConstants.ORDER_SECOND)
 @Component
 @Slf4j
-public class FirstTableSupplementHandler  implements IHandler{
+public class FirstTableSupplementHandler implements IHandler {
 
 
     @Override

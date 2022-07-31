@@ -4,7 +4,9 @@ import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.SQLExpr;
 import com.alibaba.druid.sql.ast.statement.SQLExprTableSource;
 import com.alibaba.druid.sql.ast.statement.SQLTableSource;
+import com.hathor.common.contants.ParserConstant;
 import com.hathor.core.engine.annotation.SQLObjectType;
+import com.hathor.core.engine.model.Node;
 import com.hathor.core.engine.model.TableNode;
 import com.hathor.core.engine.model.TreeNode;
 import com.hathor.core.engine.process.SqlExprContent;
@@ -38,10 +40,11 @@ public class SQLExprTableSourceProcessor implements TableSourceProcessor{
     public void process(String dbType, AtomicInteger sequence, TreeNode<TableNode> parent, SQLTableSource sqlTableSource
     ) {
         // 建立TEMP节点 start
-        TableNode proxyTable = TableNode.builder()
-                .expression(SQLUtils.toSQLString(sqlTableSource))
-                .alias(sqlTableSource.getAlias())
-                .build();
+        TableNode proxyTable = new TableNode();
+        proxyTable.setType(Node.EXPR_TYPE);
+
+        proxyTable.setAlias(sqlTableSource.getAlias());
+        proxyTable.setExpression(SQLUtils.toSQLString(sqlTableSource));
         TreeNode<TableNode> proxyNode = TreeNode.of(proxyTable);
         parent.addChild(proxyNode);
 
@@ -49,6 +52,8 @@ public class SQLExprTableSourceProcessor implements TableSourceProcessor{
         SqlExprContent sqlExprContent = new SqlExprContent();
         DruidProcessorRegister.getSQLExprProcessor(sqlExprTableSourceExpr.getClass())
                 .process(dbType, sqlExprTableSourceExpr, sqlExprContent);
+
+        proxyTable.setProcessorName(sqlExprTableSourceExpr.getClass().getName());
         proxyTable.setName(sqlExprContent.getName());
         proxyTable.setSchemaName(sqlExprContent.getOwner());
     }
