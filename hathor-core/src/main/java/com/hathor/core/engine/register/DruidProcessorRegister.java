@@ -4,6 +4,7 @@ import com.hathor.core.engine.process.expr.SQLExprProcessor;
 import com.hathor.core.engine.process.selectquery.SQLSelectQueryProcessor;
 import com.hathor.core.engine.process.statement.StatementProcessor;
 import com.hathor.core.engine.process.tablesource.TableSourceProcessor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import java.util.Objects;
  * Date         Author          Version            Description
  * ------------------------------------------------------------
  */
+@Slf4j
 public class DruidProcessorRegister {
 
 
@@ -48,12 +50,16 @@ public class DruidProcessorRegister {
 
     public static void register(Class<?> clazz, Object bean) {
         if (bean instanceof StatementProcessor) {
+            log.info("[StatementProcessor] - load statement processor : {}", bean.getClass().getName());
             STATEMENT_PROCESSOR_MAP.put(clazz, (StatementProcessor) bean);
         } else if (bean instanceof SQLSelectQueryProcessor) {
+            log.info("[SQLSelectQueryProcessor] - load select query processor : {}", bean.getClass().getName());
             SQL_SELECT_QUERY_PROCESSOR_MAP.put(clazz, (SQLSelectQueryProcessor) bean);
         } else if (bean instanceof TableSourceProcessor) {
+            log.info("[TableSourceProcessor] - load table source processor : {}", bean.getClass().getName());
             TABLE_SOURCE_PROCESSOR_MAP.put(clazz, (TableSourceProcessor) bean);
         } else if (bean instanceof SQLExprProcessor) {
+            log.info("[SQLExprProcessor] - load table sql expr processor : {}", bean.getClass().getName());
             TABLE_SQL_EXPR_MAP.put(clazz, (SQLExprProcessor) bean);
         }
     }
@@ -61,6 +67,7 @@ public class DruidProcessorRegister {
     public static StatementProcessor getStatementProcessor(Type clazz) {
         StatementProcessor statementProcessor = STATEMENT_PROCESSOR_MAP.get(clazz);
         if (Objects.isNull(statementProcessor)) {
+            log.info("[TODO] - 待开发: {}", clazz.getTypeName());
             throw new UnsupportedOperationException(clazz.getTypeName());
         }
         return statementProcessor;
@@ -69,6 +76,7 @@ public class DruidProcessorRegister {
     public static SQLExprProcessor getSQLExprProcessor(Type clazz) {
         SQLExprProcessor sqlExprProcessor = TABLE_SQL_EXPR_MAP.get(clazz);
         if (Objects.isNull(sqlExprProcessor)) {
+            log.info("[TODO] - 待开发: {}", clazz.getTypeName());
             throw new UnsupportedOperationException(clazz.getTypeName());
         }
         return sqlExprProcessor;
@@ -77,6 +85,7 @@ public class DruidProcessorRegister {
     public static SQLSelectQueryProcessor getSQLSelectQueryProcessor(Type clazz) {
         SQLSelectQueryProcessor sqlSelectQueryProcessor = SQL_SELECT_QUERY_PROCESSOR_MAP.get(clazz);
         if (Objects.isNull(sqlSelectQueryProcessor)) {
+            log.info("[TODO] - 待开发: {}", clazz.getTypeName());
             throw new UnsupportedOperationException(clazz.getTypeName());
         }
         return sqlSelectQueryProcessor;
@@ -85,6 +94,7 @@ public class DruidProcessorRegister {
     public static TableSourceProcessor getTableSourceProcessor(Type clazz) {
         TableSourceProcessor tableSourceProcessor = TABLE_SOURCE_PROCESSOR_MAP.get(clazz);
         if (Objects.isNull(tableSourceProcessor)) {
+            log.info("[TODO] - 待开发: {}", clazz.getTypeName());
             throw new UnsupportedOperationException(clazz.getTypeName());
         }
         return tableSourceProcessor;

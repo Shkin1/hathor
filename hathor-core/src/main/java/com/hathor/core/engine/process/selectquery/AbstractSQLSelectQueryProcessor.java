@@ -7,6 +7,7 @@ import com.alibaba.druid.sql.ast.statement.SQLSelectStatement;
 import com.alibaba.druid.sql.ast.statement.SQLSubqueryTableSource;
 import com.hathor.core.engine.model.TableNode;
 import com.hathor.core.engine.model.TreeNode;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -23,6 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Date         Author          Version            Description
  * ------------------------------------------------------------
  */
+@Slf4j
 public abstract class AbstractSQLSelectQueryProcessor implements SQLSelectQueryProcessor {
 
     @Override
@@ -37,6 +39,7 @@ public abstract class AbstractSQLSelectQueryProcessor implements SQLSelectQueryP
      * SQLSubqueryTableSource V SQLObject Contain SQLSelect 时, 合并
      * SQLSubqueryTableSource 中的
      * TODO
+     *
      * @param sqlObject sqlObject
      * @return alias
      */
@@ -50,12 +53,12 @@ public abstract class AbstractSQLSelectQueryProcessor implements SQLSelectQueryP
             return sqlSubqueryTableSource.getAlias();
         } else if (parentObject instanceof SQLSelectStatement
                 || parentObject instanceof SQLCreateTableStatement) {
-            throw new UnsupportedOperationException(parentObject.getClass().getName());
+            log.info("TODO 开发~~~");
+            return null;
         } else {
             return null;
         }
     }
-
 
 
 }

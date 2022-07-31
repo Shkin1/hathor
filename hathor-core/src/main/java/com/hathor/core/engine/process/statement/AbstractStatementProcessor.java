@@ -4,6 +4,7 @@ import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.sql.ast.SQLExpr;
 import com.alibaba.druid.sql.ast.SQLStatement;
 import com.alibaba.druid.sql.ast.statement.SQLExprTableSource;
+import com.hathor.common.contants.ParserConstant;
 import com.hathor.core.engine.model.Node;
 import com.hathor.core.engine.model.TableNode;
 import com.hathor.core.engine.model.TreeNode;
@@ -31,6 +32,7 @@ public abstract class AbstractStatementProcessor implements StatementProcessor {
 
     @Override
     public void process(String dbType, AtomicInteger sequence, TreeNode<TableNode> root, SQLStatement statement) {
+        log.info("wait match statement processor: {}", statement.getClass().getName());
         this.doProcess(dbType, sequence, root, statement);
         this.after(dbType, sequence, root, statement);
     }
@@ -40,16 +42,23 @@ public abstract class AbstractStatementProcessor implements StatementProcessor {
 
     protected void constructRootNode(String dbType, TreeNode<TableNode> root, SQLStatement statement,
                                      SQLExprTableSource sqlExprTableSource) {
-        SQLExpr sqlExpr = sqlExprTableSource.getExpr();
-        SqlExprContent content = new SqlExprContent();
-        DruidProcessorRegister.getSQLExprProcessor(sqlExpr.getClass()).process(dbType, sqlExpr, content);
-        String tableName = content.getName();
-        String schemaName = content.getOwner();
         TableNode tableNode = new TableNode();
         tableNode.setType(Node.ROOT_TABLE_TYPE);
-        tableNode.setSchemaName(schemaName);
-        tableNode.setName(tableName);
-        tableNode.setVirtualTemp(false);
+        if (sqlExprTableSource == null) {
+            // SELECT 的情况
+            tableNode.setVirtualTemp(true);
+            tableNode.setName(ParserConstant.TEMP_TABLE_PREFIX + "SELECT_ROOT");
+            tableNode.setVirtualTemp(false);
+        } else {
+            SQLExpr sqlExpr = sqlExprTableSource.getExpr();
+            SqlExprContent content = new SqlExprContent();
+            DruidProcessorRegister.getSQLExprProcessor(sqlExpr.getClass()).process(dbType, sqlExpr, content);
+            String tableName = content.getName();
+            String schemaName = content.getOwner();
+            tableNode.setSchemaName(schemaName);
+            tableNode.setName(tableName);
+            tableNode.setVirtualTemp(false);
+        }
         tableNode.setProcessorName(statement.getClass().getName());
         root.setValue(tableNode);
         try {

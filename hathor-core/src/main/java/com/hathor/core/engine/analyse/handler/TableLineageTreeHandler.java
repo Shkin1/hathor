@@ -51,13 +51,14 @@ public class TableLineageTreeHandler implements IHandler {
 //                    sqlContext.getSql(),
 //                    sqlContext.getDbType().toLowerCase());
 
-            // 注意Hive 只有insert create 如何是select会自动转为SQLSelectStatement;  JdbcConstants.HIVE.toLowerCase()
+//             注意Hive 只有insert create 如何是select会自动转为SQLSelectStatement;  JdbcConstants.HIVE.toLowerCase()
             statement = SQLUtils.parseSingleStatement(sqlContext.getSql(),
                     sqlContext.getDbType().toLowerCase());
         } catch (Exception e) {
             throw new ParserException("statement.parser.err", e);
         }
-        response.setStatementType(statement.getDbType().getClass().getSimpleName().toUpperCase());
+//        response.setStatementType(statement.getDbType().getClass().getSimpleName().toUpperCase());
+        response.setStatementType(statement.getClass().getSimpleName().toUpperCase());
         // 处理
         System.out.println("根据statement.getClass()获取对应的statementProcessor :" + statement.getClass());
         DruidProcessorRegister.getStatementProcessor(statement.getClass())
