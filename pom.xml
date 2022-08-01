@@ -45,7 +45,6 @@
         <module>hathor-common</module>
         <module>hathor-core</module>
         <module>hathor-portal</module>
-        <module>hathor-web</module>
     </modules>
 
     <dependencyManagement>
