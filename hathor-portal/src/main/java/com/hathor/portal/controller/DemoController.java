@@ -1,10 +1,13 @@
 package com.hathor.portal.controller;
 
+import com.alibaba.fastjson2.JSON;
 import com.hathor.common.entity.response.ResponseVO;
 import com.hathor.core.engine.analyse.SqlRequestContext;
 import com.hathor.core.engine.analyse.SqlResponseContext;
 import com.hathor.core.engine.analyse.handler.DefaultAnalyseTreeBuildChain;
+import com.hathor.core.engine.gsqlparser.GSqlDataFlowAnalyzer;
 import com.hathor.core.engine.model.HathorLineage;
+import com.hathor.core.engine.model.v1.HathorTableBlood;
 import com.hathor.core.engine.util.TreeNodeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,6 +55,18 @@ public class DemoController {
         defaultHandlerChain.build(sqlRequestContext, response);
         HathorLineage hathorLineage = TreeNodeUtil.tableRelHandle(response);
         return ResponseVO.ok(hathorLineage);
+    }
+
+
+    @GetMapping("tableLineage")
+    @ApiOperation(value = "tableLineage", notes = "tableLineage", httpMethod = "GET")
+
+    public ResponseVO tableLineage(String sql, String dbType) {
+
+        GSqlDataFlowAnalyzer gSqlDataFlowAnalyzer = new GSqlDataFlowAnalyzer();
+        HathorTableBlood tableBlood = gSqlDataFlowAnalyzer.parse(sql, dbType);
+        String result = JSON.toJSONString(tableBlood);
+        return ResponseVO.ok(result);
     }
 
 
