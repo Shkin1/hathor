@@ -44,6 +44,12 @@ public class ColumnNode extends Node {
      * 来源列
      */
     private final List<ColumnNode> sourceColumns = new ArrayList<>();
+
+    /**
+     * 列 -> 子查询
+     */
+    private List<TableNode> subSelectLineage;
+
     /**
      * 此节点表达式
      */
@@ -83,6 +89,14 @@ public class ColumnNode extends Node {
 
     public String getName() {
         return name;
+    }
+
+    public List<TableNode> getSubSelectLineage() {
+        return subSelectLineage;
+    }
+
+    public void setSubSelectLineage(List<TableNode> subSelectLineage) {
+        this.subSelectLineage = subSelectLineage;
     }
 
     public void setName(String name) {

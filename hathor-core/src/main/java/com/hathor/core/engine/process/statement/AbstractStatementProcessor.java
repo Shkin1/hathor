@@ -48,7 +48,6 @@ public abstract class AbstractStatementProcessor implements StatementProcessor {
             // SELECT 的情况
             tableNode.setVirtualTemp(true);
             tableNode.setName(ParserConstant.TEMP_TABLE_PREFIX + "SELECT_ROOT");
-            tableNode.setVirtualTemp(false);
         } else {
             SQLExpr sqlExpr = sqlExprTableSource.getExpr();
             SqlExprContent content = new SqlExprContent();

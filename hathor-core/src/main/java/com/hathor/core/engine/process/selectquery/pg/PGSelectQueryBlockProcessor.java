@@ -14,6 +14,7 @@ import com.hathor.core.engine.model.TreeNode;
 import com.hathor.core.engine.process.SqlExprContent;
 import com.hathor.core.engine.process.selectquery.AbstractSQLSelectQueryProcessor;
 import com.hathor.core.engine.register.DruidProcessorRegister;
+import com.hathor.core.engine.util.TreeNodeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
@@ -92,6 +93,7 @@ public class PGSelectQueryBlockProcessor extends AbstractSQLSelectQueryProcessor
         SqlExprContent sqlExprContent = SqlExprContent.of();
         DruidProcessorRegister.getSQLExprProcessor(sqlExpr.getClass()).process(dbType, sqlExpr, sqlExprContent);
         String alias = sqlSelectItem.getAlias();
+
         if (sqlExprContent.isEmptyChildren()) {
             String name = sqlExprContent.getName();
             String ownerTable = sqlExprContent.getOwner();
@@ -102,6 +104,15 @@ public class PGSelectQueryBlockProcessor extends AbstractSQLSelectQueryProcessor
             if (!StringUtils.isEmpty(alias)) {
                 columnNode.setAlias(alias);
             }
+
+            if (sqlExprContent.getTreeNode() != null) {
+                // 列 -> subQuery
+                TreeNode<TableNode> treeNode = sqlExprContent.getTreeNode();
+                ArrayList<TableNode> subLineage = new ArrayList<>();
+                TreeNodeUtil.getAllTableNode(treeNode, subLineage);
+                columnNode.setSubSelectLineage(subLineage);
+            }
+
             return columnNode;
         }
         ColumnNode firstColumnNode = ColumnNode.builder().alias(alias).build();

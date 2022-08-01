@@ -76,7 +76,7 @@ public class TreeNodeUtil {
     }
 
     // TODO 改为指定顺序的遍历
-    private static void getAllTableNode(TreeNode<TableNode> root, List<TableNode> allNode) {
+    public static void getAllTableNode(TreeNode<TableNode> root, List<TableNode> allNode) {
         if (root.getChildList() == null) {
             return;
         }
