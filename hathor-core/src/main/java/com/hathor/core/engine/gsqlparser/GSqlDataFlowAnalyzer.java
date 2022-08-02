@@ -100,7 +100,7 @@ public class GSqlDataFlowAnalyzer {
         String type = object.getType();
         String name = object.getName();
         log.info("dbObjectToNode type : {}", type);
-        HathorTableFlowNode hathorTableFlowNode = new HathorTableFlowNode(type, name);
+        HathorTableFlowNode hathorTableFlowNode = new HathorTableFlowNode(name, type);
         if (HathorTableFlowNode.TYPE_TABLE.equals(type)) {
             hathorTableFlowNode.setSchema(object.getSchema());
         }
