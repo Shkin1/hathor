@@ -39,7 +39,6 @@ public class GSqlDataFlowAnalyzer {
         Dataflow sqlFlow = getSqlFlow(sql, dbType);
         handle(sqlFlow, hathorTableBlood);
         return hathorTableBlood;
-
     }
 
 

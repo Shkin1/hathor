@@ -2,6 +2,7 @@ package com.hathor.portal.controller;
 
 import com.alibaba.fastjson2.JSON;
 import com.hathor.common.entity.response.ResponseVO;
+import com.hathor.common.util.Base64Util;
 import com.hathor.core.engine.analyse.SqlRequestContext;
 import com.hathor.core.engine.analyse.SqlResponseContext;
 import com.hathor.core.engine.analyse.handler.DefaultAnalyseTreeBuildChain;
@@ -58,11 +59,21 @@ public class DemoController {
     }
 
 
-    @GetMapping("tableLineage")
-    @ApiOperation(value = "tableLineage", notes = "tableLineage", httpMethod = "GET")
+    @PostMapping("tableLineage")
+    @ApiOperation(value = "tableLineage", notes = "tableLineage", httpMethod = "POST")
+    public ResponseVO tableLineage(@RequestParam("sql") String sql, @RequestParam("type") String dbType) {
 
-    public ResponseVO tableLineage(String sql, String dbType) {
+        GSqlDataFlowAnalyzer gSqlDataFlowAnalyzer = new GSqlDataFlowAnalyzer();
+        HathorTableBlood tableBlood = gSqlDataFlowAnalyzer.parse(sql, dbType);
+        String result = JSON.toJSONString(tableBlood);
+        return ResponseVO.ok(result);
+    }
 
+    @PostMapping("tableLineageBase64")
+    @ApiOperation(value = "tableLineageBase64", notes = "tableLineageBase64", httpMethod = "POST")
+    public ResponseVO tableLineageBase64(@RequestParam("code") String code, @RequestParam("type") String dbType) {
+
+        String sql = Base64Util.decodeUTF8(code);
         GSqlDataFlowAnalyzer gSqlDataFlowAnalyzer = new GSqlDataFlowAnalyzer();
         HathorTableBlood tableBlood = gSqlDataFlowAnalyzer.parse(sql, dbType);
         String result = JSON.toJSONString(tableBlood);
