@@ -17,10 +17,12 @@ import java.util.List;
  * @since 1.0
  */
 @Builder
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class ColumnNode {
+public class ColumnNode extends Node {
+
+    public ColumnNode() {
+        setType(Node.COLUMN_TYPE);
+    }
 
     /**
      * 列所属的表，考虑
@@ -42,6 +44,12 @@ public class ColumnNode {
      * 来源列
      */
     private final List<ColumnNode> sourceColumns = new ArrayList<>();
+
+    /**
+     * 列 -> 子查询
+     */
+    private List<TableNode> subSelectLineage;
+
     /**
      * 此节点表达式
      */
@@ -62,4 +70,81 @@ public class ColumnNode {
      */
     @Builder.Default
     private boolean isConstant = false;
+
+    public TableNode getOwner() {
+        return owner;
+    }
+
+    public void setOwner(TableNode owner) {
+        this.owner = owner;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<TableNode> getSubSelectLineage() {
+        return subSelectLineage;
+    }
+
+    public void setSubSelectLineage(List<TableNode> subSelectLineage) {
+        this.subSelectLineage = subSelectLineage;
+    }
+
+    public void setName(String name) {
+        this.setPkName(name);
+        this.name = name;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public List<ColumnNode> getSourceColumns() {
+        return sourceColumns;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+
+    public void setExpression(String expression) {
+        this.expression = expression;
+    }
+
+    public Long getTableTreeNodeId() {
+        return tableTreeNodeId;
+    }
+
+    public void setTableTreeNodeId(Long tableTreeNodeId) {
+        this.tableTreeNodeId = tableTreeNodeId;
+    }
+
+    public String getTableExpression() {
+        return tableExpression;
+    }
+
+    public void setTableExpression(String tableExpression) {
+        this.tableExpression = tableExpression;
+    }
+
+    public boolean isConstant() {
+        return isConstant;
+    }
+
+    public void setConstant(boolean constant) {
+        isConstant = constant;
+    }
 }

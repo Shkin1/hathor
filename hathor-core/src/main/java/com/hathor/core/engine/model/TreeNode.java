@@ -6,17 +6,24 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * <p>
- * 血缘解析时关系存储结构-树结构
- * 解析时，先将AST树转换为此结构
+ * <p>TreeNode</p>
+ * <p>Description:
+ * 书结构
  * </p>
  *
- * @author JupiterMouse 2020/09/09
- * @since 1.0
+ * @author 普帝
+ * @version v1.0.0
+ * @date 2022/07/2022/7/30 22:38
+ * <p>
+ * Modification History:
+ * Date         Author          Version            Description
+ * ------------------------------------------------------------
  */
-public class TreeNode<T> {
+public class TreeNode<T extends Node> {
 
     AtomicLong id = new AtomicLong(0);
+
+    String parentName;
 
     T value;
 
@@ -101,7 +108,7 @@ public class TreeNode<T> {
         return parent;
     }
 
-    public static <T> TreeNode<T> of(T data) {
+    public static <T extends Node> TreeNode<T> of(T data) {
         TreeNode<T> treeNode = new TreeNode<>();
         treeNode.setValue(data);
         return treeNode;

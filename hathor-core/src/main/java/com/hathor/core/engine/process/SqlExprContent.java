@@ -1,5 +1,7 @@
 package com.hathor.core.engine.process;
 
+import com.hathor.core.engine.model.TableNode;
+import com.hathor.core.engine.model.TreeNode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,9 +41,15 @@ public class SqlExprContent {
     private String name;
 
     /**
+     * select 子查询列
+     *
+     */
+    private TreeNode<TableNode> treeNode;
+
+    /**
      * 是否为字符串常量，
      * 默认为false
-     * true @see cn.jupitermouse.lineage.parser.druid.process.sqlexpr.SQLCharExpr
+     * true @see SQLCharExpr
      */
     @Builder.Default
     private boolean isConstant = false;

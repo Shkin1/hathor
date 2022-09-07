@@ -27,6 +27,12 @@
             <artifactId>hathor-common</artifactId>
             <version>${hathor.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.hathor</groupId>
+            <artifactId>hathor-core</artifactId>
+            <version>0.1.1</version>
+        </dependency>
     </dependencies>
 
 

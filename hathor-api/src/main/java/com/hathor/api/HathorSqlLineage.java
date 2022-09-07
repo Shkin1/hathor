@@ -1,6 +1,7 @@
 package com.hathor.api;
 
-import com.hathor.common.entity.HathorTableBlood;
+
+import com.hathor.core.engine.model.v1.HathorTableBlood;
 
 /**
  * <p>HathorSqlLineage</p>
