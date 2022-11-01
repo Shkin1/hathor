@@ -6,6 +6,7 @@ import com.hathor.core.engine.contants.StartOrderConstants;
 import com.hathor.core.engine.model.TableNode;
 import com.hathor.core.engine.model.TreeNode;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>RichColumnHandler</p>
@@ -21,6 +22,7 @@ import org.springframework.core.annotation.Order;
  * ------------------------------------------------------------
  */
 @Order(StartOrderConstants.ORDER_THIRD)
+@Component
 public class RichColumnHandler implements IHandler{
     @Override
     public void handleRequest(SqlRequestContext request, SqlResponseContext response) {

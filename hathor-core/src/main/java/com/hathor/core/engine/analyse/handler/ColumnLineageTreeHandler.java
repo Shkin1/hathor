@@ -10,6 +10,7 @@ import com.hathor.core.engine.model.TreeNode;
 import com.hathor.core.engine.tracer.ColumnLineageTracer;
 import com.hathor.core.engine.tracer.ColumnLineageTracerFactory;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -29,11 +30,12 @@ import java.util.List;
  * ------------------------------------------------------------
  */
 @Order(StartOrderConstants.ORDER_FOURTH)
+@Component
 public class ColumnLineageTreeHandler implements IHandler {
     @Override
     public void handleRequest(SqlRequestContext request, SqlResponseContext response) {
         System.out.println("TODO ---");
-//        handleColumnRelation(request, response);
+        handleColumnRelation(request, response);
     }
 
     private void handleColumnRelation(SqlRequestContext sqlContext, SqlResponseContext response) {
@@ -46,7 +48,7 @@ public class ColumnLineageTreeHandler implements IHandler {
         ColumnLineageTracer columnLineageTracer = ColumnLineageTracerFactory.getDefaultTracer();
         // 获取到字段血缘树
         List<TreeNode<ColumnNode>> lineageColumnTreeList = new ArrayList<>();
-        rootColumns.stream().map(TreeNode::of).forEach(nodeTreeNode -> {
+        rootColumns.stream().map(TreeNode::of).forEach(nodeTreeNode -> { // 遍历字段
             lineageColumnTreeList.add(nodeTreeNode);
             columnLineageTracer.traceColumnLineageTree(
                     sqlContext.getDbType(),
@@ -70,7 +72,7 @@ public class ColumnLineageTreeHandler implements IHandler {
         if (CollectionUtils.isEmpty(root.getChildList()) || root.getChildList().size() != 1) {
             throw new ParserException("node.found.more");
         }
-        // 第一个有字段的节点，其父级仅有一个子元素
+        // 拿到根的第一个子集，根一般只有一个虚拟的子集
         return root.getChildList().get(0);
     }
 }
