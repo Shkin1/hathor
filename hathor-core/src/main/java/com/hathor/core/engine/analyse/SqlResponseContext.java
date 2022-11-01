@@ -6,6 +6,7 @@ import com.hathor.core.engine.model.TreeNode;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>SqlResponseContext</p>
@@ -38,5 +39,16 @@ public class SqlResponseContext {
      * 字段血缘解析结果
      */
     private List<TreeNode<ColumnNode>> lineageColumnTreeList;
+
+    /**
+     * 表级别血缘
+     */
+    private List<Map<String, String>> tableRelation;
+
+    /**
+     * 字段级别血缘
+     */
+    private List<Map<String, String>> columnRelation;
+
 
 }

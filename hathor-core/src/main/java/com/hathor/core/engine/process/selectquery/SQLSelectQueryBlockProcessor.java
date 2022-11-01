@@ -52,7 +52,6 @@ public class SQLSelectQueryBlockProcessor extends AbstractSQLSelectQueryProcesso
         proxyTable.setType(Node.V_TABLE_TYPE);
         proxyTable.setProcessorName(sqlSelectQueryBlock.getClass().getName());
         TreeNode<TableNode> proxyNode = TreeNode.of(proxyTable);
-        parent.addChild(proxyNode);
         // 生成字段
         List<ColumnNode> columnList = sqlSelectQueryBlock.getSelectList()
                 .stream()
@@ -61,6 +60,7 @@ public class SQLSelectQueryBlockProcessor extends AbstractSQLSelectQueryProcesso
         // TODO 如果字段的表名没有, 考虑填充表名，以提高字段来源检索。
         // 表字段填充到表
         proxyTable.getColumns().addAll(columnList);
+        parent.addChild(proxyNode);
         log.info("add column:{}", columnList);
         // 继续向下处理
         DruidProcessorRegister.getTableSourceProcessor(sqlSelectQueryBlock.getFrom().getClass())
